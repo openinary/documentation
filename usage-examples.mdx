@@ -1,0 +1,39 @@
+---
+title: "Usage Examples"
+description: "Examples of how to use Openinary's transformation API"
+---
+
+### Image Transformations
+
+Simple Resizing
+
+```bash
+http://localhost:3000/t/resize:800x600/image.png
+```
+
+With Cropping and Quality
+
+```bash
+http://localhost:3000/t/resize:400x400/crop:fill/quality:85/image.png
+```
+
+Optimized Modern Format
+
+```bash
+http://localhost:3000/t/resize:1200x800/format:webp/quality:90/image.png
+```
+
+Change Ratio with Automatic Focus on Face
+
+```bash
+http://localhost:3000/t/ratio:1:1/gravity:face/image.png
+```
+
+### Video Transformations
+
+Compressed Video
+
+```bash
+http://localhost:3000/t/resize:1280x720/quality:75/video.mp4
+```
+

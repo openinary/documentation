@@ -1,0 +1,32 @@
+---
+title: "Project Structure"
+description: "Understanding the Openinary monorepo structure"
+---
+
+Openinary is organized as a monorepo with the following structure:
+
+```
+openinary/
+├── apps/
+│   ├── api/          # Media processing API
+│   └── web/          # Next.js Frontend
+├── packages/
+│   └── shared/       # Shared types and utilities
+├── docker/           # Optimized Dockerfiles
+└── docker-compose.yml
+```
+
+## Apps
+
+- **api/**: The main media processing API that handles transformations, uploads, and delivery
+- **web/**: Next.js frontend application for managing media
+
+## Packages
+
+- **shared/**: Shared TypeScript types and utilities used across apps
+
+## Docker
+
+- **docker/**: Contains optimized Dockerfiles for containerized deployments
+- **docker-compose.yml**: Docker Compose configuration for local development
+
