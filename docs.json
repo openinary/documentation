@@ -26,7 +26,6 @@
         "group": "Development",
         "pages": [
           "local-development",
-          "docker",
           "configuration",
           "project-structure"
         ]

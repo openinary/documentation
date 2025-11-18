@@ -3,27 +3,111 @@ title: "Quick Start"
 description: "Get started with Openinary in minutes"
 ---
 
-```bash
-# Clone the repository
-git clone https://github.com/openinary/openinary.git
-cd openinary
+## Prerequisites
 
-# Install all dependencies (apps + packages)
+<Tabs>
+
+  <Tab title="Docker setup">
+
+    - [Docker](https://docs.docker.com/get-docker/) (version 20.x or higher)
+    - [Docker Compose](https://docs.docker.com/compose/install/) (version 2.x or higher)
+
+  </Tab>
+
+</Tabs>
+
+## Quick Start
+
+Run Openinary locally with Docker in just a few commands:
+
+<Steps>
+
+  <Step title="Clone the repository">
+
+```bash
+git clone https://github.com/openinary/openinary.git
+```
+
+  </Step>
+
+  <Step title="Change into the project directory">
+
+```bash
+cd openinary
+```
+
+  </Step>
+
+  <Step title="Configure environment variables (optional)">
+
+To configure S3-compatible cloud storage (Cloudflare R2 or AWS S3), copy the example environment file:
+
+```bash
+cp apps/api/.env.example apps/api/.env
+```
+
+Then edit `apps/api/.env` with your cloud storage credentials.
+
+For local testing with default settings (using local file storage), you can skip this step.
+
+  </Step>
+
+  <Step title="Build and start all services">
+
+```bash
+docker-compose up --build
+```
+
+  </Step>
+
+</Steps>
+
+**That's it!** Docker will:
+- Build the API and Web applications
+- Install all dependencies automatically
+- Start both services in production mode
+
+## Access Your Applications
+
+Once the containers are running, you can access:
+
+- **Frontend**: http://localhost:3001
+- **API**: http://localhost:3000
+
+## Test with Sample Files
+
+Sample files are available in `/apps/api/public/` for testing:
+- `image.png` - Test image transformations
+- `video.mp4` - Test video transformations
+
+## Stopping the Application
+
+To stop all services:
+
+```bash
+# Stop and remove containers
+docker-compose down
+
+# Stop containers and remove volumes (clears cache)
+docker-compose down -v
+```
+
+## Development Mode (Alternative)
+
+If you prefer to run in development mode without Docker:
+
+```bash
+# Install dependencies
 pnpm install
 
-# Start development (API + Frontend)
+# Start development servers
 pnpm dev
 ```
 
-**Development URLs:**
-
-- API: http://localhost:3000
-- Frontend: http://localhost:3001
-
-You will find two sample files in /apps/api/public/ to use (image.png and video.mp4)
+Development URLs will be the same (API: http://localhost:3000, Frontend: http://localhost:3001)
 
 ---
 
 <Warning>
-**Production Warning**: Local mode is **NOT recommended for production** as files in the `public/` folder will be overwritten on each deployment/build. For production environments, always use cloud storage (S3 or R2).
+**Production Deployment**: When deploying to production, always use cloud storage (S3 or R2) instead of local file storage. Configure your cloud storage credentials in `apps/api/.env`. The local `public/` folder is only suitable for testing and development.
 </Warning>
