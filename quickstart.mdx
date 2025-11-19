@@ -40,15 +40,18 @@ cd openinary
 
   <Step title="Configure environment variables (optional)">
 
-To configure S3-compatible cloud storage (Cloudflare R2 or AWS S3), copy the example environment file:
+  <Tip>
+  For local testing with default settings (using local file storage), you can skip this step.
+  </Tip>
 
-```bash
-cp apps/api/.env.example apps/api/.env
-```
+  To configure S3-compatible cloud storage (Cloudflare R2 or AWS S3), copy the example environment file:
 
-Then edit `apps/api/.env` with your cloud storage credentials.
+  ```bash
+  cp apps/api/.env.example apps/api/.env
+  ```
 
-For local testing with default settings (using local file storage), you can skip this step.
+  Then edit `apps/api/.env` with your cloud storage credentials. For full details and options, see the [Storage configuration](/configuration) guide.
+
 
   </Step>
 

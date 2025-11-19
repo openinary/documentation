@@ -3,15 +3,17 @@ title: "Storage configuration"
 description: "Configure Openinary for local or cloud storage"
 ---
 
-###  Local Mode (default)
+### Local Mode (default)
 
 Place your files in `apps/api/public/`
 
 <Warning>
-**Production Warning**: Local mode is **NOT recommended for production** as files in the `public/` folder will be overwritten on each deployment/build. For production environments, always use cloud storage (S3 or R2).
+**Production Warning**: Local mode is **NOT recommended for production** as files in the `public/` folder will be overwritten on each deployment/build. For production environments, always use cloud storage.
 </Warning>
 
-###  Cloud Mode
+### Cloud Mode
+
+Openinary supports **any S3-compatible storage provider** with a universal configuration. No need to specify the provider - it's automatically detected!
 
 Copy and configure:
 
@@ -19,10 +21,25 @@ Copy and configure:
 cp apps/api/.env.example apps/api/.env
 ```
 
+#### Universal S3 Configuration
+
+The configuration automatically detects your provider:
+- **With STORAGE_ENDPOINT**: S3-compatible provider (Cloudflare R2, Minio, DigitalOcean Spaces, Wasabi, etc.)
+- **Without STORAGE_ENDPOINT**: AWS S3 standard
+
+#### AWS S3
+
+```bash
+STORAGE_REGION=us-east-1
+STORAGE_ACCESS_KEY_ID=your_aws_access_key
+STORAGE_SECRET_ACCESS_KEY=your_aws_secret_key
+STORAGE_BUCKET_NAME=your-bucket-name
+STORAGE_PUBLIC_URL=https://your-bucket-name.s3.us-east-1.amazonaws.com
+```
+
 #### Cloudflare R2
 
-```env apps/api/.env
-STORAGE_PROVIDER=cloudflare
+```bash
 STORAGE_REGION=auto
 STORAGE_ACCESS_KEY_ID=your_r2_access_key
 STORAGE_SECRET_ACCESS_KEY=your_r2_secret_key
@@ -31,14 +48,19 @@ STORAGE_ENDPOINT=https://your-account-id.r2.cloudflarestorage.com
 STORAGE_PUBLIC_URL=https://your-custom-domain.com
 ```
 
-#### AWS S3
+#### Other S3-Compatible Providers
 
-```env apps/api/.env
-STORAGE_PROVIDER=aws
+Works with **Minio**, **DigitalOcean Spaces**, **Wasabi**, **Backblaze B2**, and any other S3-compatible service:
+
+```bash
 STORAGE_REGION=us-east-1
-STORAGE_ACCESS_KEY_ID=your_aws_access_key
-STORAGE_SECRET_ACCESS_KEY=your_aws_secret_key
+STORAGE_ACCESS_KEY_ID=your_access_key
+STORAGE_SECRET_ACCESS_KEY=your_secret_key
 STORAGE_BUCKET_NAME=your-bucket-name
-STORAGE_PUBLIC_URL=https://your-bucket-name.s3.us-east-1.amazonaws.com
+STORAGE_ENDPOINT=https://your-s3-compatible-endpoint.com
+STORAGE_PUBLIC_URL=https://your-cdn-domain.com
 ```
 
+<Note>
+**Key difference**: Set `STORAGE_ENDPOINT` for any non-AWS S3-compatible provider. For AWS S3, leave it empty.
+</Note>
