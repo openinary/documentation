@@ -1,0 +1,152 @@
+---
+title: "Video Transformations"
+description: "Resize and compress videos with quality control and efficient encoding"
+---
+
+## Core Parameters
+
+<ParamField path="resize" type="string">
+  Resize the video to specified dimensions. Format: `WxH`.
+  
+  **Common resolutions:**
+  - `resize:1920x1080` - Full HD 1080p
+  - `resize:1280x720` - HD 720p
+  - `resize:640x480` - Standard definition (SD)
+  - `resize:640x360` - Low resolution preview
+</ParamField>
+
+<ParamField path="quality" type="integer" default="75">
+  Control video quality using <Tooltip tip="Constant Rate Factor - lower values mean better quality">CRF</Tooltip> encoding. Range: 1-100.
+  
+  **Quality mapping:**
+  - `quality:100` → CRF 18 (very high quality, large file)
+  - `quality:85` → CRF 23 (high quality, recommended)
+  - `quality:75` → CRF 28 (good quality, balanced)
+  - `quality:50` → CRF 35 (medium quality, smaller file)
+  - `quality:10` → CRF 45 (low quality, minimum size)
+</ParamField>
+
+## Video Examples
+
+<Tabs>
+<Tab title="HD Optimization">
+
+```http
+GET /t/resize:1280x720/quality:80/video.mp4
+```
+
+Convert to 720p HD with high quality encoding.
+
+</Tab>
+
+<Tab title="Preview Generation">
+
+```http
+GET /t/resize:640x360/quality:60/preview.mp4
+```
+
+Create a low-resolution preview for faster loading.
+
+</Tab>
+
+<Tab title="Full HD">
+
+```http
+GET /t/resize:1920x1080/quality:90/movie.mp4
+```
+
+Full HD output with maximum quality settings.
+
+</Tab>
+</Tabs>
+
+## Supported Video Formats
+
+<Tabs>
+<Tab title="Input Formats">
+
+The system accepts the following video formats as input:
+
+- **MP4** - With H.264 or H.265 codecs
+- **MOV** - QuickTime format
+- **WebM** - With VP8 or VP9 codecs
+
+</Tab>
+
+<Tab title="Output Format">
+
+All videos are output in the following standardized format:
+
+- **MP4 with H.264 codec** - Maximum device and browser compatibility
+
+<Note>
+The output codec is standardized to H.264 to ensure broad device and browser support across all platforms.
+</Note>
+
+</Tab>
+</Tabs>
+
+## Use Cases
+
+<AccordionGroup>
+<Accordion title="Social media optimization">
+
+```http
+GET /t/resize:1080x1080/quality:85/social.mp4
+```
+
+Create square videos optimized like Instagram and X feeds.
+
+</Accordion>
+
+<Accordion title="Mobile-friendly format">
+
+```http
+GET /t/resize:640x360/quality:65/video.mp4
+```
+
+Generate low-bandwidth versions for mobile users on slower connections.
+
+</Accordion>
+
+<Accordion title="High-quality presentations">
+
+```http
+GET /t/resize:1920x1080/quality:95/presentation.mp4
+```
+
+Maintain maximum quality for professional presentations and demos.
+
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+For videos that will be viewed frequently, consider pre-generating them to use the cached version.
+</Tip>
+
+## Performance Considerations
+
+Video transformations are significantly more resource-intensive than image operations. Keep these factors in mind:
+
+<CardGroup cols={2}>
+<Card title="Processing time" icon="clock">
+  Video processing can take 5-30 seconds depending on original file resolution and quality settings.
+</Card>
+
+<Card title="Cache efficiency" icon="database">
+  Cached video transformations are served in under 50ms, making caching essential for performance.
+</Card>
+
+<Card title="Storage impact" icon="hard-drive">
+  Higher quality settings result in larger file sizes. Balance quality against storage costs.
+</Card>
+
+<Card title="Bandwidth usage" icon="network-wired">
+  Consider delivering lower resolutions to mobile devices to reduce bandwidth consumption.
+</Card>
+</CardGroup>
+
+<Warning>
+Avoid on-demand video transformations for high-traffic scenarios. Pre-process videos during upload or content ingestion whenever possible.
+</Warning>
+

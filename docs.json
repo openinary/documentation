@@ -13,14 +13,17 @@
         "group": "Getting Started",
         "pages": [
           "index",
-          "quickstart"
+          "quickstart",
+          "configuration"
         ]
       },
       {
-        "group": "Usage",
+        "group": "Media Transformations",
         "pages": [
-          "configuration",
-          "usage-examples"
+          "media-transformations/overview",
+          "media-transformations/image-transformations",
+          "media-transformations/video-transformations",
+          "media-transformations/intelligent-compression"
         ]
       },
       {

@@ -66,7 +66,7 @@ description: "Guide for developing Openinary locally"
 
     - **Cloud Storage Credentials**: Only required if using cloud storage mode (AWS S3 or Cloudflare R2)
       - For local development, files can be placed in `apps/api/public/`
-      - See Configuration section in main README for cloud setup
+      - See [Storage configuration](/configuration) for cloud setup
 
   </Tab>
 
@@ -106,20 +106,4 @@ Run the API and frontend separately:
 ```bash
 pnpm dev:api
 pnpm dev:web
-```
-
-## Build all
-
-Build all packages:
-
-```bash
-pnpm build
-```
-
-## Lint all
-
-Run all linters:
-
-```bash
-pnpm lint
 ```
