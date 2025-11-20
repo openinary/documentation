@@ -18,7 +18,7 @@ description: "Get started with Openinary in minutes"
 
 ## Quick Start
 
-Run Openinary locally with Docker in just a few commands:
+Run Openinary locally with Docker in just a few commands. The setup runs the API and the Dashboard in a single container:
 
 <Steps>
 
@@ -66,16 +66,16 @@ docker-compose up --build
 </Steps>
 
 **That's it!** Docker will:
-- Build the API and Web applications
+- Build the API and Web applications in a single container
 - Install all dependencies automatically
-- Start both services in production mode
+- Start all services (API on port 3002, Web on port 3001, Nginx on port 3000)
 
 ## Access Your Applications
 
-Once the containers are running, you can access:
+Once the container is running, access everything at:
 
-- **Frontend**: http://localhost:3001
-- **API**: http://localhost:3000
+- **Main Application**: http://localhost:3000
+- **API Endpoints**: http://localhost:3000/api
 
 ## Test with Sample Files
 
@@ -94,6 +94,20 @@ docker-compose down
 # Stop containers and remove volumes (clears cache)
 docker-compose down -v
 ```
+
+## API-Only Mode
+
+If you only need the API without the frontend:
+
+```bash
+# Start API only
+docker compose --profile api up --build
+
+# Run in background
+docker compose --profile api up -d --build
+```
+
+The API will be available at http://localhost:3000
 
 ## Development Mode (Alternative)
 

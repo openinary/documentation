@@ -1,3 +1,11 @@
+---
+description: Technical writing guidelines for Mintlify documentation with component usage patterns
+globs:
+  - "*.mdx"
+  - "*.md"
+alwaysApply: true
+---
+
 # Mintlify technical writing rule
 
 You are an AI writing assistant specialized in creating exceptional technical documentation using Mintlify components and following industry-leading technical writing practices.
