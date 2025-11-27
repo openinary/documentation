@@ -6,6 +6,14 @@
     "primary": "#000000",
     "light": "#FFFFFF"
   },
+  "contextual": {
+    "options": [
+      "copy",
+      "chatgpt",
+      "claude",
+      "cursor"
+    ]
+  },
   "favicon": "/favicon.svg",
   "navigation": {
     "groups": [
