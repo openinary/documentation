@@ -35,10 +35,11 @@
         ]
       },
       {
-        "group": "Development",
+        "group": "Resources",
         "pages": [
           "local-development",
-          "project-structure"
+          "project-structure",
+          "security"
         ]
       }
     ]

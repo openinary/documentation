@@ -26,77 +26,85 @@ Run Openinary locally with Docker in just a few commands. Openinary supports two
 
 ```bash
 git clone https://github.com/openinary/openinary.git
-```
-
-  </Step>
-
-  <Step title="Change into the project directory">
-
-```bash
 cd openinary
 ```
 
   </Step>
 
-  <Step title="Configure environment variables (optional)">
-
-  <Tip>
-  For local testing with default settings (using local file storage), you can skip this step.
-  </Tip>
-
-  To configure S3-compatible cloud storage (Cloudflare R2 or AWS S3), copy the example environment file:
-
-  ```bash
-  cp apps/api/.env.example apps/api/.env
-  ```
-
-  Then edit `apps/api/.env` with your cloud storage credentials. For full details and options, see the [Storage configuration](/configuration) guide.
-
-
-  </Step>
-
   <Step title="Choose your deployment mode">
 
-  Select the deployment mode that fits your use case:
+Select the deployment mode that fits your use case:
 
-  <Tabs>
+<Tabs>
 
-  <Tab title="Mode 1: API Only">
+<Tab title="Normal (Dashboard + API)">
 
-  Deploy only the Hono API server for backend services and integrations.
+Ideal for managing your users, API keys, and media through a web interface.
 
-  ```bash
-  # Start API only
-  docker compose --profile api up --build
+<Steps>
 
-  # Run in background
-  docker compose --profile api up -d --build
-  ```
+<Step title="Start with Docker">
 
-  **Access**: API available at http://localhost:3000
+```bash
+docker compose --profile full up --build
+```
 
-  </Tab>
+</Step>
 
-  <Tab title="Mode 2: API + Dashboard">
+<Step title="Initial setup via web interface">
 
-  Deploy the complete stack (API + Next.js frontend) with nginx as a reverse proxy. All traffic goes through port 3000:
+1. Open http://localhost:3000
+2. Visit `/setup` to create your admin account
+3. Log in
+4. Go to `/api-keys` to create an API key
+5. Use this key for your image/video transformations
 
-  - `/` → Next.js frontend
-  - `/api` → Hono API
+<Check>
+Your Openinary instance is operational.
+</Check>
 
-  ```bash
-  # Start api + dashboard
-  docker compose --profile full up --build
+</Step>
 
-  # Run in background
-  docker compose --profile full up -d --build
-  ```
+</Steps>
 
-  **Access**: Application available at http://localhost:3000
+</Tab>
 
-  </Tab>
+<Tab title="Standalone API">
 
-  </Tabs>
+Ideal for pure backend usage with your own application.
+
+<Steps>
+
+<Step title="Start with Docker">
+
+```bash
+docker compose --profile api up --build
+```
+
+<Warning>
+**Important:** The generated API key will appear in the Docker logs: copy and save this key! It will not be displayed again.
+</Warning>
+
+</Step>
+
+<Step title="Test the API">
+
+```bash
+# Health check
+curl http://localhost:3000/health
+
+# Image transformation
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  "http://localhost:3000/t/resize:800x600/image.png"
+```
+
+</Step>
+
+</Steps>
+
+</Tab>
+
+</Tabs>
 
   </Step>
 
@@ -108,33 +116,11 @@ Sample files are available in `/apps/api/public/` for testing:
 - `image.png` - Test image transformations
 - `video.mp4` - Test video transformations
 
-## Stopping the Application
+## Connecting External S3-Compatible Storage
 
-To stop services, use the same profile you started with:
+By default, Openinary uses local file storage. For production or to use cloud storage, you can configure environment variables to connect to any S3-compatible storage provider (AWS S3, Cloudflare R2, DigitalOcean Spaces, Minio, and more).
 
-<Tabs>
-
-<Tab title="API Only">
-
-```bash
-docker compose --profile api down
-```
-
-</Tab>
-
-<Tab title="API + Dashboard">
-
-```bash
-docker compose --profile full down
-```
-
-</Tab>
-
-</Tabs>
-
-<Tip>
-Add the `-v` flag to also remove volumes and clear cache: `docker compose --profile api down -v`
-</Tip>
+See the [Storage configuration](/configuration) page for detailed setup instructions.
 
 ## Development Mode (Alternative)
 
