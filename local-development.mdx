@@ -107,3 +107,23 @@ Run the API and frontend separately:
 pnpm dev:api
 pnpm dev:web
 ```
+
+## Using Docker
+
+You can also run Openinary using Docker Compose. This is useful if you want to avoid installing dependencies locally or need isolated environments.
+
+### Start Full Stack
+
+Start both the API and frontend with Docker:
+
+```bash
+docker compose --profile full up --build
+```
+
+### Start API Only
+
+Start only the API service:
+
+```bash
+docker compose --profile api up --build
+```

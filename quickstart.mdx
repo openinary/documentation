@@ -5,114 +5,86 @@ description: "Get started with Openinary in minutes"
 
 ## Prerequisites
 
-<Tabs>
-
-  <Tab title="Docker setup">
-
-    - [Docker](https://docs.docker.com/get-docker/) (version 20.x or higher)
-    - [Docker Compose](https://docs.docker.com/compose/install/) (version 2.x or higher)
-
-  </Tab>
-
-</Tabs>
+- [Docker](https://docs.docker.com/get-docker/) (version 20.x or higher)
 
 ## Quick Start
 
-Run Openinary locally with Docker in just a few commands. Openinary supports two deployment modes depending on your needs.
-
-<Steps>
-
-  <Step title="Clone the repository">
+### Installation
 
 ```bash
-git clone https://github.com/openinary/openinary.git
-cd openinary
+docker pull openinary/openinary:latest
 ```
-
-  </Step>
-
-  <Step title="Choose your deployment mode">
-
-Select the deployment mode that fits your use case:
 
 <Tabs>
 
-<Tab title="Normal (Dashboard + API)">
+<Tab title="Normal">
 
-Ideal for managing your users, API keys, and media through a web interface.
-
-<Steps>
-
-<Step title="Start with Docker">
+Full mode with dashboard and API:
 
 ```bash
-docker compose --profile full up --build
+docker run -d -p 3000:3000 \
+  -v openinary-cache:/app/apps/api/cache \
+  -v openinary-public:/app/apps/api/public \
+  -v openinary-db:/app/data \
+  openinary/openinary:latest
 ```
 
-</Step>
+</Tab>
 
-<Step title="Initial setup via web interface">
+<Tab title="With S3 Compatible Storage">
 
+Use cloud storage instead of local file storage:
+
+```bash
+docker run -d -p 3000:3000 \
+  -v openinary-db:/app/data \
+  -e STORAGE_REGION=us-east-1 \
+  -e STORAGE_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXXXX \
+  -e STORAGE_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
+  -e STORAGE_BUCKET_NAME=openinary-filebase \
+  -e STORAGE_ENDPOINT=https://s3.filebase.com/ \
+  openinary/openinary:latest
+```
+
+</Tab>
+
+<Tab title="API Only">
+
+Standalone API mode (auto-generates API key):
+
+```bash
+docker pull openinary/openinary-api:latest
+
+docker run -d -p 3000:3000 \
+  -v openinary-cache:/app/apps/api/cache \
+  -v openinary-public:/app/apps/api/public \
+  -v openinary-db:/app/data \
+  -e MODE=api \
+  openinary/openinary-api:latest
+```
+
+<Warning>
+**Important:** The generated API key will appear in the Docker container logs. Check the logs with `docker logs <container-id>` and copy and save this key! It will not be displayed again.
+</Warning>
+
+</Tab>
+
+</Tabs>
+
+### Initial Setup
+
+**Normal mode (Dashboard + API):**
 1. Open http://localhost:3000
-2. Visit `/setup` to create your admin account
-3. Log in
-4. Go to `/api-keys` to create an API key
-5. Use this key for your image/video transformations
+2. Visit `/setup` to create admin account
+3. Go to `/api-keys` to generate an API key
 
 <Check>
 Your Openinary instance is operational.
 </Check>
 
-</Step>
-
-</Steps>
-
-</Tab>
-
-<Tab title="Standalone API">
-
-Ideal for pure backend usage with your own application.
-
-<Steps>
-
-<Step title="Start with Docker">
-
-```bash
-docker compose --profile api up --build
-```
-
-<Warning>
-**Important:** The generated API key will appear in the Docker logs: copy and save this key! It will not be displayed again.
-</Warning>
-
-</Step>
-
-<Step title="Test the API">
-
-```bash
-# Health check
-curl http://localhost:3000/health
-
-# Image transformation
-curl -H "Authorization: Bearer YOUR_API_KEY" \
-  "http://localhost:3000/t/resize:800x600/image.png"
-```
-
-</Step>
-
-</Steps>
-
-</Tab>
-
-</Tabs>
-
-  </Step>
-
-</Steps>
-
 ## Test with Sample Files
 
-Sample files are available in `/apps/api/public/` for testing:
+Sample files are available in the container at `/app/apps/api/public/` for testing:
 - `image.png` - Test image transformations
 - `video.mp4` - Test video transformations
 
@@ -127,6 +99,9 @@ See the [Storage configuration](/configuration) page for detailed setup instruct
 If you prefer to run in development mode without Docker:
 
 ```bash
+# Clone the repo
+git clone https://github.com/openinary/openinary.git && cd openinary
+
 # Install dependencies
 pnpm install
 
@@ -139,5 +114,10 @@ Development URLs will be the same (API: http://localhost:3000, Frontend: http://
 ---
 
 <Warning>
-**Production Deployment**: When deploying to production, always use cloud storage (S3 or R2) instead of local file storage. Configure your cloud storage credentials in `apps/api/.env`. The local `public/` folder is only suitable for testing and development.
+**Volume Persistence**: When deploying to production, ensure all three Docker volumes are properly persisted across deployments:
+- `openinary-db` - Contains database file (admin account, API keys)
+- `openinary-public` - Contains uploaded files and media
+- `openinary-cache` - Contains cached transformations
+
+If any of these volumes are removed or recreated during deployment, the corresponding data will be lost. For production environments, consider using cloud storage (S3 or R2) for better reliability and scalability.
 </Warning>

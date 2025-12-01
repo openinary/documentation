@@ -5,11 +5,23 @@ description: "Configure Openinary for local or cloud storage"
 
 ### Local Mode (default)
 
+<Tabs>
+<Tab title="Development Mode">
+
 Place your files in `apps/api/public/`
 
+</Tab>
+
+<Tab title="Docker Mode">
+
+Files are stored in the Docker volume `openinary-public`, mounted at `/app/apps/api/public` inside the container.
+
 <Warning>
-**Production Warning**: Local mode is **NOT recommended for production** as files in the `public/` folder will be overwritten on each deployment/build. For production environments, always use cloud storage.
+**Volume Persistence**: Ensure the `openinary-public` volume is properly persisted across deployments. If the volume is removed or recreated during deployment, all stored files will be lost. For production environments, consider using cloud storage (S3 or R2) for better reliability and scalability.
 </Warning>
+
+</Tab>
+</Tabs>
 
 ### Cloud Mode
 
@@ -18,7 +30,7 @@ Openinary supports **any S3-compatible storage provider** with a universal confi
 Copy and configure:
 
 ```bash
-cp apps/api/.env.example apps/api/.env
+cp apps/api/env.template apps/api/.env
 ```
 
 #### Universal S3 Configuration
