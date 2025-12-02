@@ -22,11 +22,11 @@ Transform and optimize your media files dynamically using URL-based parameters. 
 All transformations use the following URL pattern:
 
 ```http
-GET /t/[param1:value1]/[param2:value2]/.../path/to/file.ext
+GET /t/[transformations]/path/to/file.ext
 ```
 
 <Info>
-Parameters can be combined in any order. The system will apply them sequentially to produce the final output.
+Transformations are specified as comma-separated parameters. The system will apply them sequentially to produce the final output.
 </Info>
 
 ### Basic Examples
@@ -35,7 +35,7 @@ Parameters can be combined in any order. The system will apply them sequentially
 <Tab title="Image Resize">
 
 ```http
-GET /t/resize:800x600/image.jpg
+GET /t/w_800,h_600/image.jpg
 ```
 
 Resize an image to 800×600 pixels.
@@ -45,7 +45,7 @@ Resize an image to 800×600 pixels.
 <Tab title="Video Optimization">
 
 ```http
-GET /t/resize:1280x720/quality:80/video.mp4
+GET /t/w_1280,h_720,q_80/video.mp4
 ```
 
 Convert video to 720p HD with quality optimization.
@@ -55,7 +55,7 @@ Convert video to 720p HD with quality optimization.
 <Tab title="Multiple Parameters">
 
 ```http
-GET /t/resize:400x400/crop:fill/gravity:face/quality:85/portrait.jpg
+GET /t/w_400,h_400,c_fill,g_face,q_85/portrait.jpg
 ```
 
 Combine multiple transformations in a single request.

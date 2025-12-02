@@ -3,27 +3,55 @@ title: "Video Transformations"
 description: "Resize and compress videos with quality control and efficient encoding"
 ---
 
+## Parameter Reference
+
+Quick reference for all available parameters:
+
+| Parameter | Full Name | Description |
+|-----------|-----------|-------------|
+| `w` | width | Video width in pixels |
+| `h` | height | Video height in pixels |
+| `c` | crop | Crop mode for resizing |
+| `q` | quality | Compression quality using CRF (1-100) |
+
 ## Core Parameters
 
-<ParamField path="resize" type="string">
-  Resize the video to specified dimensions. Format: `WxH`.
+<ParamField path="w" type="integer">
+  Set the width of the video in pixels.
   
   **Common resolutions:**
-  - `resize:1920x1080` - Full HD 1080p
-  - `resize:1280x720` - HD 720p
-  - `resize:640x480` - Standard definition (SD)
-  - `resize:640x360` - Low resolution preview
+  - `w_1920` - Full HD 1080p width
+  - `w_1280` - HD 720p width
+  - `w_640` - Standard definition (SD) width
 </ParamField>
 
-<ParamField path="quality" type="integer" default="75">
+<ParamField path="h" type="integer">
+  Set the height of the video in pixels.
+  
+  **Common resolutions:**
+  - `h_1080` - Full HD 1080p height
+  - `h_720` - HD 720p height
+  - `h_480` - Standard definition (SD) height
+  - `h_360` - Low resolution preview height
+</ParamField>
+
+<ParamField path="c" type="string">
+  Define how the video is cropped during resizing.
+  
+  **Available modes:**
+  - `fill` - Fill entire area, cropping if necessary (scale + crop strategy)
+  - `crop` - Resize and crop to exact dimensions
+</ParamField>
+
+<ParamField path="q" type="integer" default="75">
   Control video quality using <Tooltip tip="Constant Rate Factor - lower values mean better quality">CRF</Tooltip> encoding. Range: 1-100.
   
   **Quality mapping:**
-  - `quality:100` → CRF 18 (very high quality, large file)
-  - `quality:85` → CRF 23 (high quality, recommended)
-  - `quality:75` → CRF 28 (good quality, balanced)
-  - `quality:50` → CRF 35 (medium quality, smaller file)
-  - `quality:10` → CRF 45 (low quality, minimum size)
+  - `q_100` → CRF 18 (very high quality, large file)
+  - `q_85` → CRF 23 (high quality, recommended)
+  - `q_75` → CRF 28 (good quality, balanced)
+  - `q_50` → CRF 35 (medium quality, smaller file)
+  - `q_10` → CRF 45 (low quality, minimum size)
 </ParamField>
 
 ## Video Examples
@@ -32,7 +60,7 @@ description: "Resize and compress videos with quality control and efficient enco
 <Tab title="HD Optimization">
 
 ```http
-GET /t/resize:1280x720/quality:80/video.mp4
+GET /t/w_1280,h_720,q_80/video.mp4
 ```
 
 Convert to 720p HD with high quality encoding.
@@ -42,7 +70,7 @@ Convert to 720p HD with high quality encoding.
 <Tab title="Preview Generation">
 
 ```http
-GET /t/resize:640x360/quality:60/preview.mp4
+GET /t/w_640,h_360,q_60/preview.mp4
 ```
 
 Create a low-resolution preview for faster loading.
@@ -52,7 +80,7 @@ Create a low-resolution preview for faster loading.
 <Tab title="Full HD">
 
 ```http
-GET /t/resize:1920x1080/quality:90/movie.mp4
+GET /t/w_1920,h_1080,q_90/movie.mp4
 ```
 
 Full HD output with maximum quality settings.
@@ -92,7 +120,7 @@ The output codec is standardized to H.264 to ensure broad device and browser sup
 <Accordion title="Social media optimization">
 
 ```http
-GET /t/resize:1080x1080/quality:85/social.mp4
+GET /t/w_1080,h_1080,q_85/social.mp4
 ```
 
 Create square videos optimized like Instagram and X feeds.
@@ -102,7 +130,7 @@ Create square videos optimized like Instagram and X feeds.
 <Accordion title="Mobile-friendly format">
 
 ```http
-GET /t/resize:640x360/quality:65/video.mp4
+GET /t/w_640,h_360,q_65/video.mp4
 ```
 
 Generate low-bandwidth versions for mobile users on slower connections.
@@ -112,7 +140,7 @@ Generate low-bandwidth versions for mobile users on slower connections.
 <Accordion title="High-quality presentations">
 
 ```http
-GET /t/resize:1920x1080/quality:95/presentation.mp4
+GET /t/w_1920,h_1080,q_95/presentation.mp4
 ```
 
 Maintain maximum quality for professional presentations and demos.

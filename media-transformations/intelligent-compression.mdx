@@ -79,7 +79,7 @@ While automatic selection is recommended, you can force a specific format when n
 <Tab title="Force AVIF">
 
 ```http
-GET /t/format:avif/quality:80/image.jpg
+GET /t/f_avif,q_80/image.jpg
 ```
 
 Explicitly request AVIF output regardless of browser support.
@@ -89,7 +89,7 @@ Explicitly request AVIF output regardless of browser support.
 <Tab title="Force WebP">
 
 ```http
-GET /t/format:webp/quality:85/image.jpg
+GET /t/f_webp,q_85/image.jpg
 ```
 
 Request WebP for specific compatibility requirements.
@@ -99,7 +99,7 @@ Request WebP for specific compatibility requirements.
 <Tab title="Force JPEG">
 
 ```http
-GET /t/format:jpeg/quality:90/image.jpg
+GET /t/f_jpeg,q_90/image.jpg
 ```
 
 Use JPEG for maximum compatibility or specific client requirements.
