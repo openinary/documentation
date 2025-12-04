@@ -13,6 +13,9 @@ Quick reference for all available parameters:
 | `h` | height | Video height in pixels |
 | `c` | crop | Crop mode for resizing |
 | `q` | quality | Compression quality using CRF (1-100) |
+| `so` | start offset | Start time in seconds for trimming or thumbnail extraction |
+| `eo` | end offset | End time in seconds for trimming |
+| `f` | format | Output format (mp4 for video, webp/jpeg/png for thumbnails) |
 
 ## Core Parameters
 
@@ -54,6 +57,44 @@ Quick reference for all available parameters:
   - `q_10` → CRF 45 (low quality, minimum size)
 </ParamField>
 
+<ParamField path="so" type="number">
+  Set the start time in seconds for video trimming or thumbnail extraction. When used with `eo`, creates a trimmed video segment. When used with `f` (image format), extracts a single frame as a thumbnail.
+  
+  **Examples:**
+  - `so_5` - Start at 5 seconds
+  - `so_0` - Start from the beginning
+  - `so_10.5` - Start at 10.5 seconds (supports decimals)
+</ParamField>
+
+<ParamField path="eo" type="number">
+  Set the end time in seconds for video trimming. Must be used together with `so` to create a trimmed video segment. The resulting video duration is `eo - so` seconds.
+  
+  **Examples:**
+  - `eo_12` - End at 12 seconds (exclusive)
+  - `eo_30` - End at 30 seconds
+  - `eo_15.5` - End at 15.5 seconds (supports decimals)
+  
+  <Note>
+  The end offset is exclusive, meaning a video trimmed with `so_5,eo_12` will be 7 seconds long (from 5s to 12s).
+  </Note>
+</ParamField>
+
+<ParamField path="f" type="string">
+  Force a specific output format. For videos, defaults to MP4. When combined with `so` (and without `eo`), extracts a single frame as an image thumbnail.
+  
+  **Video formats:**
+  - `mp4` - Standard video format (default)
+  
+  **Thumbnail formats:**
+  - `webp` - Modern format, excellent compression
+  - `jpeg` / `jpg` - Universal image format
+  - `png` - Lossless format with transparency support
+  
+  <Tip>
+  Combine `so` with `f_webp` or `f_jpeg` to extract a single frame as a thumbnail image.
+  </Tip>
+</ParamField>
+
 ## Video Examples
 
 <Tabs>
@@ -77,13 +118,23 @@ Create a low-resolution preview for faster loading.
 
 </Tab>
 
-<Tab title="Full HD">
+<Tab title="Video Trimming">
 
 ```http
-GET /t/w_1920,h_1080,q_90/movie.mp4
+GET /t/w_400,h_300,so_5,eo_12/video.mp4
 ```
 
-Full HD output with maximum quality settings.
+Trim video from 5 seconds to 12 seconds and resize to 400×300. Produces a 7-second video segment.
+
+</Tab>
+
+<Tab title="Thumbnail Extraction">
+
+```http
+GET /t/w_400,h_300,so_5,f_webp/video.mp4
+```
+
+Extract a single frame at 5 seconds as a 400×300 WebP thumbnail image.
 
 </Tab>
 </Tabs>
@@ -144,6 +195,26 @@ GET /t/w_1920,h_1080,q_95/presentation.mp4
 ```
 
 Maintain maximum quality for professional presentations and demos.
+
+</Accordion>
+
+<Accordion title="Video trimming and segments">
+
+```http
+GET /t/w_400,h_300,so_5,eo_12/video.mp4
+```
+
+Extract a specific segment from a video. This example creates a 7-second clip (from 5s to 12s) resized to 400×300 pixels. Perfect for creating highlights, previews, or extracting specific moments from longer videos.
+
+</Accordion>
+
+<Accordion title="Video thumbnails">
+
+```http
+GET /t/w_400,h_300,so_5,f_webp/video.mp4
+```
+
+Generate thumbnail images from videos by extracting a single frame at a specific timestamp. Combine `so` with an image format (`f_webp`, `f_jpeg`, or `f_png`) to create thumbnails for video galleries, preview cards, or social media sharing.
 
 </Accordion>
 </AccordionGroup>
