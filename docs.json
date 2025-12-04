@@ -19,6 +19,7 @@
     "groups": [
       {
         "group": "Getting Started",
+        "icon": "rocket",
         "pages": [
           "index",
           "quickstart",
@@ -27,6 +28,7 @@
       },
       {
         "group": "Media Transformations",
+        "icon": "wand-magic-sparkles",
         "pages": [
           "media-transformations/overview",
           "media-transformations/image-transformations",
@@ -36,10 +38,12 @@
       },
       {
         "group": "Resources",
+        "icon": "toolbox",
         "pages": [
           "local-development",
           "project-structure",
-          "security"
+          "security",
+          "changelog"
         ]
       }
     ]

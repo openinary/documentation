@@ -1,0 +1,55 @@
+---
+title: "Changelog"
+description: "History of changes, updates, and improvements to Openinary"
+---
+
+<Update label="December 4, 2025">
+## New features
+
+- **Video trimming and thumbnail extraction**: Added support for video trimming with `so` (start offset) and `eo` (end offset) parameters
+- **Thumbnail generation**: Extract single frames from videos as images using `so` combined with image formats (`webp`, `jpeg`, `png`)
+- **API-only mode**: Standalone API deployment option with auto-generated API keys for headless setups
+- **Contextual options**: Enhanced documentation with copy, ChatGPT, Claude, and Cursor integration options
+
+## Documentation improvements
+
+- Enhanced media transformation documentation with comprehensive parameter reference for images and videos
+- Added detailed Docker volume persistence warnings and best practices
+- Created comprehensive security guide covering authentication, API keys, and best practices
+- Improved Quick Start guide with multiple deployment modes (Normal, S3 Compatible, API Only)
+- Updated storage configuration documentation with detailed setup instructions
+- Restructured navigation for improved content discoverability
+
+## Bug fixes
+
+- Fixed Docker command consistency across documentation
+- Updated navigation links to reflect new documentation structure
+</Update>
+
+<Update label="December 2, 2025">
+## Breaking changes
+
+- **Parameter syntax update**: Changed transformation parameter syntax from `param:value` to `param_value` to match Cloudinary's syntax 1:1. This change enables faster transition for developers migrating from Cloudinary and reduces the learning curve.
+
+  **Migration example:**
+  - Old syntax: `/t/resize:1280x720/image.jpg`
+  - New syntax: `/t/w_1280,h_720/image.jpg`
+
+<Tip>
+The new syntax matches Cloudinary exactly, making it easier to migrate existing code and learn Openinary if you're already familiar with Cloudinary.
+</Tip>
+</Update>
+
+<Update label="November 15, 2025" description="Initial Release">
+## Initial release
+
+- **Core media processing**: On-the-fly image and video transformations
+- **Image transformations**: Resize, crop, and optimize images with quality control
+- **Video transformations**: Resize and compress videos with CRF quality encoding
+- **Intelligent compression**: Automatic format optimization (WebP, AVIF)
+- **Cloud storage integration**: Support for AWS S3 and S3-compatible storage (Cloudflare R2, DigitalOcean Spaces, Minio)
+- **Self-hosted deployment**: Docker-based deployment with dashboard and API
+- **Caching layer**: Built-in caching for fast transformation delivery
+- **RESTful API**: Simple, powerful API for media operations
+</Update>
+
