@@ -3,6 +3,101 @@ title: "Changelog"
 description: "History of changes, updates, and improvements to Openinary"
 ---
 
+<Update label="December 14, 2025">
+## New features
+
+### Docker Resource Limits
+
+The `docker-compose.yml` now includes configurable resource constraints to prevent video processing from overwhelming the server:
+
+```yaml docker-compose.yml
+deploy:
+  resources:
+    limits:
+      cpus: '${DOCKER_CPU_LIMIT:-2.0}'
+      memory: ${DOCKER_MEMORY_LIMIT:-4G}
+    reservations:
+      cpus: '${DOCKER_CPU_RESERVATION:-0.5}'
+      memory: ${DOCKER_MEMORY_RESERVATION:-1G}
+```
+
+**Default configuration:**
+- **Memory limit**: 4GB (suitable for most deployments)
+- **CPU limit**: 2.0 cores
+- **Memory reservation**: 1GB minimum
+
+<Tip>
+For larger servers (16GB+ RAM), you can customize via environment variables:
+
+```bash
+DOCKER_MEMORY_LIMIT=12G
+DOCKER_CPU_LIMIT=4.0
+```
+</Tip>
+
+### Job Queue System with Auto-Scaling
+
+Introduced a robust job queue system that prevents concurrent video transformations from consuming all available resources.
+
+**Automatic Concurrency Detection:**
+- Formula: **1 worker per 2GB of RAM** (minimum 1, maximum 16)
+- Automatically detects the server's total RAM and calculates optimal concurrent jobs
+- Example: 8GB RAM = 4 concurrent video jobs maximum
+
+**Manual Override (optional):**
+
+```bash .env
+VIDEO_MAX_CONCURRENT=2  # Force specific concurrency level
+```
+
+**Additional queue configuration:**
+
+```bash .env
+VIDEO_JOB_RETRY_MAX=3              # Retry failed jobs up to 3 times
+VIDEO_JOB_CLEANUP_HOURS=24         # Auto-cleanup completed jobs after 24h
+VIDEO_WORKER_POLL_INTERVAL_MS=1000 # Worker polling frequency
+```
+
+## How it works
+
+<Steps>
+<Step title="Upload">
+When you upload a video, it's queued for processing instead of being processed immediately.
+</Step>
+
+<Step title="Priority">
+Thumbnail extraction has higher priority than transformations.
+</Step>
+
+<Step title="Concurrency Control">
+Only processes N videos simultaneously based on available RAM.
+</Step>
+
+<Step title="Retry Logic">
+Failed jobs are automatically retried up to 3 times.
+</Step>
+
+<Step title="Resource Protection">
+Docker limits prevent any single process from consuming too much memory.
+</Step>
+</Steps>
+
+## Improvements
+
+- **SIGKILL errors**: By limiting concurrent jobs and Docker resources, FFmpeg won't be killed by the OOM killer
+- **Large files**: The queue ensures large videos are processed sequentially if resources are limited
+- **Server stability**: Self-hosted deployment will remain stable under heavy load
+- **Automatic recovery**: Crashed jobs are automatically retried
+
+<Check>
+The system works out-of-the-box with sensible defaults. The log on startup will show:
+
+```
+[Video Config] RAM: 8.00GB | Max concurrent jobs: 4 (auto-detected)
+```
+</Check>
+</Update>
+
 <Update label="December 4, 2025">
 ## New features
 
