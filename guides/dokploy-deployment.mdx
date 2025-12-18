@@ -1,0 +1,153 @@
+---
+title: "Deploy on Dokploy"
+description: "Step-by-step guide to deploy Openinary on Dokploy"
+---
+
+## Prerequisites
+
+- A Dokploy account with access to a server
+- Docker support enabled on your Dokploy instance
+
+## Deployment Steps
+
+<Steps>
+
+<Step title="Create or access your project">
+
+If you don't have a project yet, create a new one in Dokploy. Navigate to your project dashboard once created.
+
+</Step>
+
+<Step title="Create a new service from template">
+
+In your project, create a new service:
+1. Choose **Template** as the service type
+2. Search for **Openinary** in the search bar
+3. Click **Create** then **Confirm**
+
+A new service named "Openinary" will appear in your project.
+
+</Step>
+
+<Step title="Configure environment variables">
+
+The environment variables are already pre-configured with placeholders. You'll see variables like:
+
+```bash
+IMAGE_TAG=latest
+BETTER_AUTH_SECRET=your-sha256-hash-or-long-secret
+BETTER_AUTH_URL=your-base-url
+ALLOWED_ORIGIN=your-base-url
+NEXT_PUBLIC_API_BASE_URL=/api
+```
+
+Make sure the `BETTER_AUTH_URL` and `ALLOWED_ORIGIN` are your base URL (the domain where Openinary will be accessible).
+
+<Tabs>
+
+<Tab title="Local Storage">
+
+The template is pre-configured for local storage. No additional environment variables are needed.
+
+</Tab>
+
+<Tab title="S3-Compatible Storage">
+
+If you want to use cloud storage, add your S3-compatible bucket configuration:
+
+```bash
+STORAGE_REGION=your-region
+STORAGE_ACCESS_KEY_ID=your-access-key
+STORAGE_SECRET_ACCESS_KEY=your-secret-key
+STORAGE_BUCKET_NAME=your-bucket-name
+STORAGE_ENDPOINT=https://your-s3-endpoint.com
+STORAGE_PUBLIC_URL=https://your-cdn-domain.com
+```
+
+See the [Storage configuration](/configuration) page for detailed setup instructions.
+
+</Tab>
+
+</Tabs>
+
+</Step>
+
+<Step title="Configure your domain (recommended)">
+
+<Note>
+Before deploying for the first time, it's highly recommended to configure your custom domain if desired.
+</Note>
+
+Navigate to the **Domains** tab and set up your domain configuration. While not mandatory, **we strongly recommend using HTTPS** for production deployments.
+
+</Step>
+
+<Step title="Deploy your application">
+
+Once your environment variables and domain are configured:
+1. Navigate to the **Environment** tab to verify everything is correct
+2. Click the **Deploy** button
+3. Click **Confirm** to start the deployment
+
+<Tip>
+We recommend watching the logs during the first deployment to ensure everything runs smoothly.
+</Tip>
+
+The first deployment will begin. If everything goes well, you should see this message at the end:
+
+```
+Docker Compose Deployed: ✅
+```
+
+<Check>
+Your Openinary instance is now deployed!
+</Check>
+
+</Step>
+
+<Step title="Access your instance">
+
+Navigate to the **Domains** tab and visit the generated URL or your configured custom domain.
+
+</Step>
+
+<Step title="Initial setup">
+
+You should land on the initial setup page where you can create your administrator account.
+
+<Warning>
+**Important**: Create your admin account immediately after deployment, as the setup route is publicly accessible until completed.
+</Warning>
+
+After signing in, you should see the sample assets or your bucket content in the Dashboard.
+
+<Check>
+Openinary is now fully configured and ready to use!
+</Check>
+
+</Step>
+
+</Steps>
+
+## Troubleshooting
+
+If you encounter any issues during deployment:
+1. Check the deployment logs in Dokploy for error messages
+2. Verify all environment variables are correctly set
+3. Ensure your domain DNS is properly configured (if using a custom domain)
+
+If problems persist, please [create an issue on GitHub](https://github.com/openinary/openinary/issues) with your deployment logs.
+
+## Next Steps
+
+Now that your Openinary instance is running, learn how to use it:
+
+<CardGroup cols={2}>
+<Card title="Transform Images" icon="image" href="/media-transformations/image-transformations">
+Learn how to transform and optimize images
+</Card>
+
+<Card title="Transform Videos" icon="video" href="/media-transformations/video-transformations">
+Learn how to transform and process videos
+</Card>
+</CardGroup>

@@ -37,6 +37,14 @@
         ]
       },
       {
+        "group": "Guides",
+        "icon": "book",
+        "pages": [
+          "guides/coolify-deployment",
+          "guides/dokploy-deployment"
+        ]
+      },
+      {
         "group": "Resources",
         "icon": "toolbox",
         "pages": [
