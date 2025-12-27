@@ -19,14 +19,10 @@ docker pull openinary/openinary:latest
 
 <Tab title="Normal">
 
-Full mode with dashboard and API:
+Dashboard and API:
 
 ```bash
-docker run -d -p 3000:3000 \
-  -v openinary-cache:/app/apps/api/cache \
-  -v openinary-public:/app/apps/api/public \
-  -v openinary-db:/app/data \
-  openinary/openinary:latest
+docker run --platform linux/amd64 -d -p 3000:3000 -v openinary-cache:/app/apps/api/cache -v openinary-public:/app/apps/api/public -v openinary-db:/app/data openinary/openinary:latest
 ```
 
 </Tab>
@@ -36,8 +32,7 @@ docker run -d -p 3000:3000 \
 Use cloud storage instead of local file storage:
 
 ```bash
-docker run -d -p 3000:3000 \
-  -v openinary-db:/app/data \
+docker run --platform linux/amd64 -d -p 3000:3000 -v openinary-db:/app/data \
   -e STORAGE_REGION=us-east-1 \
   -e STORAGE_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXXXX \
   -e STORAGE_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
@@ -55,12 +50,7 @@ Standalone API mode (auto-generates API key):
 ```bash
 docker pull openinary/openinary-api:latest
 
-docker run -d -p 3000:3000 \
-  -v openinary-cache:/app/apps/api/cache \
-  -v openinary-public:/app/apps/api/public \
-  -v openinary-db:/app/data \
-  -e MODE=api \
-  openinary/openinary-api:latest
+docker run --platform linux/amd64 -d -p 3000:3000 -v openinary-cache:/app/apps/api/cache -v openinary-public:/app/apps/api/public -v openinary-db:/app/data -e MODE=api openinary/openinary-api:latest
 ```
 
 <Warning>
@@ -75,8 +65,8 @@ docker run -d -p 3000:3000 \
 
 **Normal mode (Dashboard + API):**
 1. Open http://localhost:3000
-2. Visit `/setup` to create admin account
-3. Go to `/api-keys` to generate an API key
+2. You'll be redirected to `/setup` to create your admin account
+3. Once logged in, in the bottom left of the dashboard, click on your profile and select “API Keys” from the menu to generate your first API key.
 
 <Check>
 Your Openinary instance is operational.
