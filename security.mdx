@@ -173,7 +173,6 @@ All containers run as user `node`:
 # docker-compose.yml
 volumes:
   - ./data:/app/data          # Database
-  - ./backups:/backup         # Backups
 ```
 
 ### Startup Security
@@ -210,7 +209,7 @@ volumes:
 
 **Requirements:**
 
-- Minimum 8 characters (12+ in production)
+- Minimum 8 characters
 - Mixed case, numbers, symbols
 
 ### Rate Limiting
@@ -291,3 +290,5 @@ Official Better Auth documentation and guides.
 Learn more about the Better Auth API Key plugin.
 </Card>
 </CardGroup>
+
+

@@ -22,8 +22,17 @@
         "icon": "rocket",
         "pages": [
           "index",
-          "quickstart",
-          "configuration"
+          "quickstart"
+        ]
+      },
+      {
+        "group": "Configuration",
+        "icon": "gear",
+        "pages": [
+          "configuration/server",
+          "configuration/storage",
+          "configuration/video-processing",
+          "configuration/docker-resources"
         ]
       },
       {

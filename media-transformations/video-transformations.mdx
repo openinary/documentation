@@ -9,16 +9,17 @@ Quick reference for all available parameters:
 
 | Parameter | Full Name | Description |
 |-----------|-----------|-------------|
-| `w` | width | Video width in pixels |
-| `h` | height | Video height in pixels |
-| `c` | crop | Crop mode for resizing |
-| `q` | quality | Compression quality using CRF (1-100) |
-| `so` | start offset | Start time in seconds for trimming or thumbnail extraction |
-| `eo` | end offset | End time in seconds for trimming |
-| `f` | format | Output format (mp4 for video, webp/jpeg/png for thumbnails) |
+| [`w`](#w) | width | Video width in pixels |
+| [`h`](#h) | height | Video height in pixels |
+| [`c`](#c) | crop | Crop mode for resizing |
+| [`q`](#q) | quality | Compression quality using CRF (1-100) |
+| [`so`](#so) | start offset | Start time in seconds for trimming or thumbnail extraction |
+| [`eo`](#eo) | end offset | End time in seconds for trimming |
+| [`f`](#f) | format | Output format (mp4 for video, webp/jpeg/png for thumbnails) |
 
 ## Core Parameters
 
+<a id="w"></a>
 <ParamField path="w" type="integer">
   Set the width of the video in pixels.
   
@@ -28,6 +29,7 @@ Quick reference for all available parameters:
   - `w_640` - Standard definition (SD) width
 </ParamField>
 
+<a id="h"></a>
 <ParamField path="h" type="integer">
   Set the height of the video in pixels.
   
@@ -38,6 +40,7 @@ Quick reference for all available parameters:
   - `h_360` - Low resolution preview height
 </ParamField>
 
+<a id="c"></a>
 <ParamField path="c" type="string">
   Define how the video is cropped during resizing.
   
@@ -46,6 +49,7 @@ Quick reference for all available parameters:
   - `crop` - Resize and crop to exact dimensions
 </ParamField>
 
+<a id="q"></a>
 <ParamField path="q" type="integer" default="75">
   Control video quality using <Tooltip tip="Constant Rate Factor - lower values mean better quality">CRF</Tooltip> encoding. Range: 1-100.
   
@@ -57,6 +61,7 @@ Quick reference for all available parameters:
   - `q_10` → CRF 45 (low quality, minimum size)
 </ParamField>
 
+<a id="so"></a>
 <ParamField path="so" type="number">
   Set the start time in seconds for video trimming or thumbnail extraction. When used with `eo`, creates a trimmed video segment. When used with `f` (image format), extracts a single frame as a thumbnail.
   
@@ -66,6 +71,7 @@ Quick reference for all available parameters:
   - `so_10.5` - Start at 10.5 seconds (supports decimals)
 </ParamField>
 
+<a id="eo"></a>
 <ParamField path="eo" type="number">
   Set the end time in seconds for video trimming. Must be used together with `so` to create a trimmed video segment. The resulting video duration is `eo - so` seconds.
   
@@ -79,6 +85,7 @@ Quick reference for all available parameters:
   </Note>
 </ParamField>
 
+<a id="f"></a>
 <ParamField path="f" type="string">
   Force a specific output format. For videos, defaults to MP4. When combined with `so` (and without `eo`), extracts a single frame as an image thumbnail.
   

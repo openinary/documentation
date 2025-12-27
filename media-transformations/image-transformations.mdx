@@ -9,18 +9,19 @@ Quick reference for all available parameters:
 
 | Parameter | Full Name | Description |
 |-----------|-----------|-------------|
-| `w` | width | Image width in pixels |
-| `h` | height | Image height in pixels |
-| `c` | crop | Crop mode for resizing |
-| `ar` | aspect ratio | Aspect ratio (format: `W:H`) |
-| `a` | angle | Rotation angle in degrees |
-| `g` | gravity | Focal point for cropping |
-| `b` | background | Background color |
-| `q` | quality | Compression quality (1-100) |
-| `f` | format | Output format (avif, webp, jpeg, png) |
+| [`w`](#w) | width | Image width in pixels |
+| [`h`](#h) | height | Image height in pixels |
+| [`c`](#c) | crop | Crop mode for resizing |
+| [`ar`](#ar) | aspect ratio | Aspect ratio (format: `W:H`) |
+| [`a`](#a) | angle | Rotation angle in degrees |
+| [`g`](#g) | gravity | Focal point for cropping |
+| [`b`](#b) | background | Background color |
+| [`q`](#q) | quality | Compression quality (1-100) |
+| [`f`](#f) | format | Output format (avif, webp, jpeg, png) |
 
 ## Core Parameters
 
+<a id="w"></a>
 <ParamField path="w" type="integer">
   Set the width of the image in pixels.
   
@@ -30,6 +31,7 @@ Quick reference for all available parameters:
   - `w_400` - Set width to 400 pixels
 </ParamField>
 
+<a id="h"></a>
 <ParamField path="h" type="integer">
   Set the height of the image in pixels.
   
@@ -39,6 +41,7 @@ Quick reference for all available parameters:
   - `h_400` - Set height to 400 pixels
 </ParamField>
 
+<a id="c"></a>
 <ParamField path="c" type="string" default="fill">
   Define how the image is cropped during resizing.
   
@@ -50,6 +53,7 @@ Quick reference for all available parameters:
   - `pad` - Fit and add borders with background color
 </ParamField>
 
+<a id="ar"></a>
 <ParamField path="ar" type="string">
   Apply a specific aspect ratio by cropping the image. Format: `W:H`.
   
@@ -59,6 +63,7 @@ Quick reference for all available parameters:
   - `ar_4:3` - Classic photo format
 </ParamField>
 
+<a id="a"></a>
 <ParamField path="a" type="string | number">
   Rotate the image by specified degrees or automatically using <Tooltip tip="Exchangeable Image File Format - metadata stored in image files">EXIF</Tooltip> data.
   
@@ -67,6 +72,7 @@ Quick reference for all available parameters:
   - `0-360` - Rotation angle in degrees
 </ParamField>
 
+<a id="g"></a>
 <ParamField path="g" type="string">
   Define the focal point for cropping operations.
   
@@ -80,6 +86,7 @@ Quick reference for all available parameters:
   - `auto` - Automatic detection of region of interest using entropy analysis
 </ParamField>
 
+<a id="b"></a>
 <ParamField path="b" type="string">
   Set background color for rotation or pad crop mode.
   
@@ -87,6 +94,7 @@ Quick reference for all available parameters:
   - `b_rgb:ffffff` - Hexadecimal color without `#` (e.g., `b_rgb:ffffff` for white, `b_rgb:ff0000` for red)
 </ParamField>
 
+<a id="q"></a>
 <ParamField path="q" type="integer" default="85">
   Control compression quality level. Range: 1-100.
   
@@ -97,6 +105,7 @@ Quick reference for all available parameters:
   - `1-59` - Maximum compression, visible artifacts
 </ParamField>
 
+<a id="f"></a>
 <ParamField path="f" type="string">
   Force a specific output format.
   

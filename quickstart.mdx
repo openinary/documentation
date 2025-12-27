@@ -105,9 +105,9 @@ Development URLs will be the same (API: http://localhost:3000, Frontend: http://
 
 <Warning>
 **Volume Persistence**: When deploying to production, ensure all three Docker volumes are properly persisted across deployments:
-- `openinary-db` - Contains database file (admin account, API keys)
-- `openinary-public` - Contains uploaded files and media
-- `openinary-cache` - Contains cached transformations
+- `db-data` - Contains database file (admin account, API keys)
+- `public-files` - Contains uploaded files and media
+- `cache-data` - Contains cached transformations
 
-If any of these volumes are removed or recreated during deployment, the corresponding data will be lost. For production environments, consider using cloud storage (S3 or R2) for better reliability and scalability.
+If any of these volumes are removed or recreated during deployment, the corresponding data will be lost. For production environments, consider using cloud storage (S3-compatible) for better reliability and scalability.
 </Warning>
