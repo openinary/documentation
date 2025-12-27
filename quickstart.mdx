@@ -19,7 +19,7 @@ docker pull openinary/openinary:latest
 
 <Tab title="Normal">
 
-Dashboard and API:
+Run the dashboard and API
 
 ```bash
 docker run --platform linux/amd64 -d -p 3000:3000 -v openinary-cache:/app/apps/api/cache -v openinary-public:/app/apps/api/public -v openinary-db:/app/data openinary/openinary:latest
@@ -29,7 +29,7 @@ docker run --platform linux/amd64 -d -p 3000:3000 -v openinary-cache:/app/apps/a
 
 <Tab title="With S3 Compatible Storage">
 
-Use cloud storage instead of local file storage:
+Run with cloud storage instead of local file storage
 
 ```bash
 docker run --platform linux/amd64 -d -p 3000:3000 -v openinary-db:/app/data \
@@ -45,7 +45,7 @@ docker run --platform linux/amd64 -d -p 3000:3000 -v openinary-db:/app/data \
 
 <Tab title="API Only">
 
-Standalone API mode (auto-generates API key):
+Run with a standalone API *(auto-generates API key)*
 
 ```bash
 docker pull openinary/openinary-api:latest

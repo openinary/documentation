@@ -96,20 +96,57 @@ curl -H "Authorization: Bearer sk_your_key_here" \
   http://localhost:3000/t/image.jpg
 ```
 
-**All protected endpoints:**
+## API Routes
 
-- `GET /t/*` - Image and video transformation
-- `POST /upload/*` - File upload
-- `GET/POST /storage/*` - Storage operations
+### Complete API Routes Table
 
-### API Key Endpoints
+| Method | Route | Description | Authentication |
+|--------|-------|-------------|----------------|
+| **PUBLIC ROUTES** | | | |
+| `GET` | `/` | API health check | Public |
+| `GET` | `/health` | API health status | Public |
+| `GET` | `/health/database` | Database status | Protected |
+| `GET` | `/t/*` | Image/video transformation | Public |
+| `GET` | `/video-status/*` | Video processing status | Public |
+| `GET` | `/video-status/*/size` | Optimized video size | Public |
+| `GET` | `/video-status/stats` | Video queue statistics | Public |
+| `GET` | `/queue/events` | SSE stream for queue events | Public |
+| **PROTECTED ROUTES** | | | |
+| `POST` | `/upload` | Upload one or multiple files | Protected |
+| `GET` | `/storage` | List file tree structure | Protected |
+| `GET` | `/storage/*/metadata` | File metadata | Protected |
+| `DELETE` | `/storage/*` | Delete a file and its cache | Protected |
+| `POST` | `/api-keys/create` | Create a new API key | Protected |
+| `GET` | `/api-keys/list` | List user's API keys | Protected |
+| `DELETE` | `/api-keys/:keyId` | Delete an API key | Protected |
+| `PATCH` | `/api-keys/:keyId` | Update an API key | Protected |
+| `GET` | `/queue/stats` | Queue statistics | Protected |
+| `GET` | `/queue/jobs` | List jobs (pagination) | Protected |
+| `POST` | `/queue/jobs/:id/retry` | Retry a failed job | Protected |
+| `POST` | `/queue/jobs/:id/cancel` | Cancel a pending job | Protected |
+| `DELETE` | `/queue/jobs/:id` | Delete a job | Protected |
+| `GET` | `/queue/worker/stats` | Worker statistics | Protected |
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api-keys/create` | Create new API key |
-| GET | `/api-keys/list` | List user's API keys |
-| PATCH | `/api-keys/:keyId` | Update API key |
-| DELETE | `/api-keys/:keyId` | Delete API key |
+### Legend
+
+- **Public**: No authentication required
+- **Protected**: API key authentication required (header `Authorization`)
+
+### Important Notes
+
+<Info>
+**Public routes:**
+- `/queue/events` is public (real-time SSE stream)
+- `/t/*` is public for direct access to transformations
+- Health endpoints are mostly public except `/health/database`
+</Info>
+
+<Warning>
+**Protected routes:**
+- All other `/queue/*` routes are protected
+- `/health/database` is protected (sensitive information)
+- Protected routes require `Authorization: Bearer <API_KEY>` header
+</Warning>
 
 **Example - Create key:**
 

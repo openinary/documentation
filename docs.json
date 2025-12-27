@@ -50,8 +50,7 @@
         "pages": [
           "local-development",
           "project-structure",
-          "security",
-          "changelog"
+          "security"
         ]
       }
     ]
@@ -88,7 +87,7 @@
     ],
     "primary": {
       "type": "button",
-      "label": "GitHub",
+      "label": "Star on GitHub",
       "href": "https://github.com/openinary/openinary"
     }
   },
